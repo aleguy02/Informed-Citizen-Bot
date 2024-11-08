@@ -1,12 +1,9 @@
-# Need to figure out how to merge branch
-
 import discord # type: ignore
 import os
-import asyncio
 from dotenv import load_dotenv
 from test_openArticleFromHome import get_article_data
-from ai import create_summary
-from parseResponse import parse_response
+from get_summary import create_summary
+from parse_response import parse_response
 
 load_dotenv()
 
@@ -46,6 +43,7 @@ async def on_message(message):
                 await message.channel.send("Timeout error occurred. Check your connection and try again later.")
         except Exception as e:
             print(f"Error occured: {e}")
+            await message.channel.send("Something went wrong, please try again.")
             
 
 client.run(os.getenv("DISCORD_BOT_TOKEN"))
