@@ -1,6 +1,3 @@
-# Need to figure out how to merge branch
-
-import asyncio
 from playwright.async_api import Playwright, async_playwright, TimeoutError as PlaywrightTimeoutError
 from bs4 import BeautifulSoup
 
