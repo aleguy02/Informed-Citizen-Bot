@@ -48,4 +48,4 @@ async def get_article_data(url: str):
                 "url": page_url
             }
         
-        return 0 # returns 0 if specifically timeout error occurs
+        return 0 # this should probably be changed
