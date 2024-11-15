@@ -2,7 +2,7 @@ from playwright.async_api import Playwright, async_playwright, TimeoutError as P
 from bs4 import BeautifulSoup
 
 
-async def run(playwright: Playwright, url: str) -> None:
+async def get_html_string(playwright: Playwright, url: str) -> None:
     browser = await playwright.chromium.launch(headless=True)
     context = await browser.new_context()
     page = await context.new_page()
@@ -23,7 +23,7 @@ async def run(playwright: Playwright, url: str) -> None:
     except PlaywrightTimeoutError:
         return True, "", ""
 
-def parse(content: str):
+def parse_html_string(content: str):
     soup = BeautifulSoup(content, 'lxml')
     headline = soup.select_one('h1[class="Page-headline"]').text
 
@@ -35,12 +35,12 @@ def parse(content: str):
 
     return headline, article_text
 
-async def get_article_data(url: str):
+async def scrape_article_data(url: str):
     async with async_playwright() as playwright:
-        timeout_error, content, page_url = await run(playwright, url)
+        timeout_error, content, page_url = await get_html_string(playwright, url)
 
         if not (timeout_error):
-            headline, article_text = parse(content)
+            headline, article_text = parse_html_string(content)
 
             return {
                 "headline": headline,

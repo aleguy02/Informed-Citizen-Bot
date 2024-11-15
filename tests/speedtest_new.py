@@ -1,4 +1,3 @@
-import asyncio
 import time
 
 #########################
@@ -25,6 +24,8 @@ async def makeReport():
                 response = create_summary(article_data)
                 end = time.perf_counter()
                 create_summary_time = end-start
+
+                summary, key_terms = parse_response(response)
             else:
                 raise Exception("Timeout Error")
             
@@ -41,12 +42,7 @@ async def makeReport():
 
 # Measure times runs makeReport 100 times and stores the time it takes to execute each core function
 def measure_times() -> list:
-    res = []
-    for i in range(100):
-        print(i)
-        res.append(asyncio.run(makeReport()))
-    
-    return res
+    pass
 
 from math_utils import get_success_rate, get_averages
 times = measure_times()

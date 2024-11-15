@@ -1,3 +1,3 @@
-from bot.func import my_func
+from bot_deprecated.func import my_func
 
 print(my_func())
