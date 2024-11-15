@@ -1,4 +1,4 @@
-from .redis_client import get_redis_connection
+from redis_client import get_redis_connection
 
 def get_article_data():
     r = get_redis_connection()

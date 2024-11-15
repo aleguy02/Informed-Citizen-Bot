@@ -1,7 +1,7 @@
 from playwright.async_api import Playwright, async_playwright, TimeoutError as PlaywrightTimeoutError
 from bs4 import BeautifulSoup
 
-
+# Helper functions for scrape_article_data
 async def get_html_string(playwright: Playwright, url: str) -> None:
     browser = await playwright.chromium.launch(headless=True)
     context = await browser.new_context()
@@ -34,6 +34,7 @@ def parse_html_string(content: str):
     article_text = " ".join([p.get_text(" ", strip=True) for p in article_p_list])
 
     return headline, article_text
+
 
 async def scrape_article_data(url: str):
     async with async_playwright() as playwright:
