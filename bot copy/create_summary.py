@@ -14,7 +14,7 @@ def create_summary(article: str):
             {
                 "role": "user",
                 "content": ("You are now an assistant whose goal to make political discussions more accessible to readers, especially those who are not familiar with political jargon. "
-                            "You will be provided a news article delimited in parentheses. Please create a concise summary of the article to help build the reader’s confidence in understanding political topics. Your summary should be unbiased and focus on key information"
+                            "You will be provided a news article delimited in parentheses. Please create a 1-paragraph summary of the article to help build the reader’s confidence in understanding political topics. Your summary should be unbiased and focused on key information"
                             f"Here is the article's contents: ({article})")
             }
         ],
