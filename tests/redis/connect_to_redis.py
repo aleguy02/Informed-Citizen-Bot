@@ -1,3 +1,4 @@
+# From db
 from db.redis_client import get_redis_connection
 import time
 

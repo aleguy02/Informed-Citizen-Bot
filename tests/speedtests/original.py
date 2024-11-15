@@ -1,8 +1,8 @@
 import asyncio
 import time
 
-#########################
-#########################
+
+# /////////////////////////
 # This is the core logic of how the bot works. I trimmed off some non-essential functions like sending the message to a user and formatting.
 
 from bot_deprecated.test_openArticleFromHome import get_article_data
@@ -25,6 +25,8 @@ async def makeReport():
                 response = create_summary(article_data)
                 end = time.perf_counter()
                 create_summary_time = end-start
+
+                summary, key_terms = parse_response(response)
             else:
                 raise Exception("Timeout Error")
             
@@ -36,8 +38,9 @@ async def makeReport():
             print(f"Error occured: {e}")
             return -1
 
-#########################
-#########################
+# /////////////////////////
+
+
 
 # Measure times runs makeReport 100 times and stores the time it takes to execute each core function
 def measure_times() -> list:

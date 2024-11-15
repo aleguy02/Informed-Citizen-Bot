@@ -84,7 +84,7 @@ def format_terms(key_terms_str: str):
     
 
 # Redis-based function
-def get_article_data():
+def get_article_data():  # relative imports are hell on earth so I'm just handling redis<->bot logic in here
     r = redis.Redis(
         host = os.getenv("REDIS_HOST"),
         port = os.getenv("REDIS_PORT"),
