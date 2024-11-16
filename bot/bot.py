@@ -28,11 +28,7 @@ async def on_message(message):
             if article_data == 0:  # 0 means get_article_data ran into timeout error and returned 0
                 raise RuntimeError("Getting article data failed")
 
-            # Generate summary and list
-            # summary = utils.create_summary(article_data["article"])
-            # key_terms_str = utils.get_key_terms(article_data["article"])
-            # key_terms = utils.format_terms(key_terms_str)
-            chat_completion = utils.create_summary_and_key_terms(article_data)
+            chat_completion = utils.create_summary_and_key_terms(article_data['article'])
             summary_and_key_terms = utils.format_terms(chat_completion)
             
             if summary_and_key_terms == 0:
