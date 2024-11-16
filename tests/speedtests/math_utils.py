@@ -7,7 +7,10 @@ def get_success_rate(items: list) -> float:
          if item == -1:
               count += 1
     
-    return ( (total - count) / total ) * 100
+    return ( (total - count) / total ) * 100    #      succeeded tries         *    100
+                                                # --------------------------
+                                                        # total tries
+
 
 # Get averages gets the
 def get_averages(items: list) -> list:
