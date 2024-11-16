@@ -17,13 +17,12 @@ def makeReport():
 
         #Time groq
         start = time.perf_counter()
-        summary = utils.create_summary(article_data["article"])
-        key_terms_str = utils.get_key_terms(article_data["article"])
+        chat_completion = utils.create_summary_and_key_terms(article_data)
         end = time.perf_counter()
         TIME_groq = end-start
 
-        key_terms = utils.format_terms(key_terms_str)
-        if key_terms == 0:
+        summary_and_key_terms = utils.format_terms(chat_completion)
+        if summary_and_key_terms == 0:
             raise RuntimeError("Key terms formatting error")
         
         if TIME_redis == -1 or TIME_groq == -1:
