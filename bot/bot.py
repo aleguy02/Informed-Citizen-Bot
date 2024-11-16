@@ -1,9 +1,9 @@
 import discord # type: ignore
 import os
 from dotenv import load_dotenv
-from test_openArticleFromHome import get_article_data
-from get_summary import create_summary
-from parse_response import parse_response
+
+import utils
+
 
 load_dotenv()
 
@@ -23,27 +23,27 @@ async def on_message(message):
     if message.content.startswith('$report'):
         try:
             await message.channel.send("Making your report...")
-            # Fetch article data
-            url = "https://apnews.com/politics"
-            article_data = await get_article_data(url)
 
+            article_data = utils.get_article_data()
             # if getting the article data raises a timeout error then don't even try to make a summary, just send a message saying there was an
-            if (article_data != 0):
-                # Generate summary and list
-                print("working")
-                response = create_summary(article_data)
-                summary, key_terms = parse_response(response)
+            if article_data == 0:
+                raise RuntimeError("Getting article data failed")
 
-                # Send summary and URL to the Discord channel
-                await message.channel.send(f"**Headline:**\n{article_data['headline']}")
-                await message.channel.send(f"**Summary:**\n{summary}")
-                await message.channel.send(f"**Key Political Terms and Concepts:**\n{key_terms}")
-                await message.channel.send(f"**Read more:**\n{article_data['url']}")
-            else:
-                await message.channel.send("Timeout error occurred. Check your connection and try again later.")
+            # Generate summary and list
+            summary = utils.create_summary(article_data["article"])
+            key_terms_str = utils.get_key_terms(article_data["article"])
+            key_terms = utils.format_terms(key_terms_str)
+            if key_terms == 0:
+                raise RuntimeError("Key terms formatting error")
+            
+            # Send summary and URL to the Discord channel
+            await message.channel.send(f"**Headline:**\n{article_data['headline']}")
+            await message.channel.send(f"**Summary:**\n{summary}")
+            await message.channel.send(f"**Key Political Terms and Concepts:**\n{key_terms}") # TODO: In content: must be 2000... is thrown here
+            await message.channel.send(f"**Read more:**\n{article_data['url']}")
         except Exception as e:
             print(f"Error occured: {e}")
-            await message.channel.send("Something went wrong, please try again.")
+            await message.channel.send("Something went wrong, please wait a moment and then try again.")
             
 
 client.run(os.getenv("DISCORD_BOT_TOKEN"))
