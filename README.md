@@ -1,7 +1,7 @@
 # Informed-Citizen-Bot
 
 A Discord bot that fetches the most recent top article from AP News' politics section on request and makes a neat summary of the article and key terms.
-## Tech
+## Tech Stack
 
 - Redis Cloud for caching article data.
 - Groq for natural language processing.
